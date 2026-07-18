@@ -1,0 +1,54 @@
+/* Re-tint Keystatic's default indigo accent to Ellie's brand blue (#0000FF).
+   Loaded only under /keystatic, so it never touches the public site.
+   !important beats Keystar UI's runtime-set values (incl. modal portals). */
+:root {
+  --kui-color-scale-indigo9: #0000ff !important;
+  --kui-color-scale-indigo10: #0000e0 !important;
+  --kui-color-scale-indigo11: #1a1acc !important;
+  --kui-color-background-accent-emphasis: #0000ff !important;
+  --kui-color-foreground-accent: #1a1acc !important;
+  --kui-color-border-accent: #b9b9ff !important;
+
+  --kui-color-scale-indigo8: #6a6aff !important;
+  --kui-color-scale-indigo7: #9a9aff !important;
+  --kui-color-scale-indigo6: #bcbcff !important;
+  --kui-color-scale-indigo5: #d6d6ff !important;
+  --kui-color-scale-indigo4: #e6e6ff !important;
+  --kui-color-scale-indigo3: #eff0ff !important;
+  --kui-color-scale-indigo2: #f7f8ff !important;
+  --kui-color-scale-indigo1: #fdfdff !important;
+  --kui-color-background-accent: #eff0ff !important;
+}
+
+/* Let the custom tooltip detect hover over disabled toolbar buttons
+   (e.g. the greyed-out "Reset changes" clock). Still not clickable. */
+button:disabled {
+  pointer-events: auto !important;
+}
+
+/* Thumbnails injected into gallery rows.
+   The cell is react-spectrum's "content" area; force it to a centered flex row
+   so the (large) thumbnail and filename line up cleanly at any size. */
+.ks-thumb-cell {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.ks-thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid #e2e3e8;
+  flex: 0 0 auto;
+  background: #f2f2f5;
+}
+.ks-thumb-name {
+  color: #8a8a94 !important;
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}

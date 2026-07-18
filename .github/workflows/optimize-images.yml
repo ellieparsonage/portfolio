@@ -1,0 +1,54 @@
+name: Optimize images
+
+# Whenever gallery images change on the live branch, shrink any oversized
+# uploads and commit the optimised versions back. This keeps the repo lean
+# no matter how large a file the editor uploads through Keystatic.
+#
+# The commit is made with the built-in GITHUB_TOKEN, whose pushes do not
+# re-trigger workflows, so this cannot loop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/images/work/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-images-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Optimise images
+        run: pnpm optimize:images
+
+      - name: Commit optimised images
+        run: |
+          if [ -z "$(git status --porcelain public/images/work)" ]; then
+            echo "No oversized images to optimise."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/work
+          git commit -m "chore: auto-optimise uploaded images"
+          git push

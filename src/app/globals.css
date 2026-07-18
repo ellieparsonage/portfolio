@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  /* Ellie's palette - sampled straight from the portfolio */
+  --color-blue: #0000ff;
+  --color-ink: #0a0a0a;
+  --color-paper: #ffffff;
+
+  /* Type - placeholders until Ellie confirms the exact faces.
+     --font-display-src / --font-mono-src are set by next/font in layout.tsx */
+  --font-display: var(--font-display-src), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-mono-src), ui-monospace, "SF Mono", monospace;
+}
+
+:root {
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--paper);
+  /* Kill iOS horizontal rubber-band: clip the root scroller on X and
+     disable sideways overscroll. body alone is not enough on iOS Safari. */
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
+/* Hide the native cursor on pointer devices - replaced by the custom one */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none;
+  }
+}
+
+/* Big display type: tight, Swiss, unapologetic */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+}
+
+/* Vertical label, like the portfolio's rotated section titles */
+.vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Fluid display scales. The vw coefficients are tuned against measured ink
+   widths so the longest word in each context (e.g. SILKWEAVER) always sits
+   inside the viewport with margin - no edge-kissing, no clipping, on any phone. */
+.type-hero {
+  font-size: clamp(2.6rem, 14vw, 14rem);
+}
+.type-divider {
+  font-size: clamp(2rem, 12vw, 8.5rem);
+}
+.type-next {
+  font-size: clamp(1.9rem, 11vw, 8rem);
+}
+.type-thanks {
+  font-size: clamp(2.8rem, 16vw, 15rem);
+}
+.type-card {
+  font-size: clamp(1.9rem, 9vw, 3rem);
+}
+
+/* Safe-area aware spacing for notch / home indicator (viewport-fit=cover) */
+.safe-x {
+  padding-left: max(5vw, env(safe-area-inset-left));
+  padding-right: max(5vw, env(safe-area-inset-right));
+}
+.safe-t {
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+}
+.safe-b {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+::selection {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,15 @@
+title: My First
+number: "09"
+order: 9
+category: Album Artwork
+description: ‘My First’ is an album collection pitched to Universal Music Group.
+  Its aim was to create soothing lullaby albums for children that parents love
+  too. The artwork needed to convey that these were children's lullaby albums,
+  while still leaning into each artist's individual style and branding, and
+  being visually appealing to parents.
+cover: /images/work/my-first/cover.jpg
+images:
+  - /images/work/my-first/images/0.jpg
+  - /images/work/my-first/images/1.jpg
+  - /images/work/my-first/images/2.jpg
+  - /images/work/my-first/images/3.jpg
