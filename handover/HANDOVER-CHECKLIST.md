@@ -24,21 +24,35 @@ The order to set everything up so Ellie ends up owning all of it. Rough time: ~1
 
 ## D. Turn on the live editor (Keystatic GitHub mode)
 
-`keystatic.config.ts` now switches automatically: local file storage on a dev
+`keystatic.config.ts` switches automatically: local file storage on a dev
 machine, GitHub on the deployed site. **No code edit is needed** — just set the
 environment variables (all listed in `.env.example`).
 
-- [ ] Create a **GitHub App** for Keystatic (GitHub → Settings → Developer
-      settings → GitHub Apps → New). Give it **Contents: read & write** on the
-      repo; set the callback URL to
-      `https://ellieparsonagedesign.com/api/keystatic/github/oauth/callback`.
-- [ ] In Vercel → Project → Settings → Environment Variables, add:
-  - `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO` = `HER-USERNAME/portfolio`
+> ⚠️ **Set all five env vars together, App first.** As soon as
+> `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO` is present the site is in GitHub mode, and
+> the build **fails** unless `KEYSTATIC_GITHUB_CLIENT_ID`,
+> `KEYSTATIC_GITHUB_CLIENT_SECRET` and `KEYSTATIC_SECRET` are also set. So create
+> the GitHub App and gather its values *before* adding any of these to Vercel —
+> don't add the repo var on its own.
+
+- [ ] Create a **GitHub App** (create it under **Ellie's** account so she owns it
+      and can install it on her repo): GitHub → Settings → Developer settings →
+      GitHub Apps → New GitHub App.
+  - Homepage URL: `https://www.ellieparsonagedesign.com`
+  - Callback URL: `https://www.ellieparsonagedesign.com/api/keystatic/github/oauth/callback`
+    (**www** — the apex 308-redirects to www, so the non-www callback would fail)
+  - Tick **Request user authorization (OAuth) during installation**.
+  - Untick **Webhook → Active**.
+  - Repository permissions: **Contents: read & write** and **Pull requests: read & write**.
+- [ ] Copy the **Client ID**, **generate a Client secret**, note the **App slug**
+      (end of the app's URL), then **Install App** onto `ellieparsonage/portfolio`.
+- [ ] In Vercel → Project → Settings → Environment Variables, add **all five at once**:
+  - `NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO` = `ellieparsonage/portfolio`
   - `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` = the app's slug
   - `KEYSTATIC_GITHUB_CLIENT_ID` and `KEYSTATIC_GITHUB_CLIENT_SECRET` = from the app
   - `KEYSTATIC_SECRET` = a random string (`openssl rand -base64 32`)
-- [ ] Redeploy. Visit `ellieparsonagedesign.com/ellieadmin`, sign in with GitHub,
-      confirm she can edit and that a save triggers a rebuild.
+- [ ] Redeploy. Visit `www.ellieparsonagedesign.com/ellieadmin`, sign in with
+      GitHub, confirm the projects load and that a save triggers a rebuild.
 - [ ] Check the gate: open `/help` in a private window — it should bounce to the
       GitHub sign-in, then work once signed in.
 

@@ -4,6 +4,8 @@
   background: #f5f6f8;
   min-height: 100vh;
   scroll-behavior: smooth;
+  /* let native controls (the search box) match the theme */
+  color-scheme: light dark;
 }
 
 .help-top {
@@ -298,4 +300,93 @@
   border: none;
   border-top: 1px solid #eef0f3;
   margin: 1.6rem 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark mode — follows the viewer's OS setting automatically (no toggle).
+   The blue header/card-heads and the dark code blocks already read well on
+   dark, so this only re-tints the light surfaces, text and borders.
+--------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  .help-page {
+    color: #e6e7ea;
+    background: #0d0e12;
+  }
+
+  /* search box */
+  .help-search {
+    background: #16171d;
+    border-color: #2a2c35;
+    box-shadow: none;
+  }
+  .help-search input {
+    color: #e6e7ea;
+  }
+  .help-search button {
+    background: #2a2c35;
+    color: #cfd2d8;
+  }
+
+  /* table of contents */
+  .help-toc a {
+    color: #c7cad1;
+  }
+  .help-toc a:hover {
+    background: #1e2030;
+    color: #9a9aff;
+    border-left-color: #6b6bff;
+  }
+  .help-toc-empty {
+    color: #7b7f88;
+  }
+
+  /* content shell */
+  .help-results {
+    color: #9aa0aa;
+  }
+  .help-card {
+    background: #16171d;
+    border-color: #2a2c35;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  /* prose */
+  .help-prose p,
+  .help-prose li {
+    color: #d4d6db;
+  }
+  .help-prose h2 {
+    border-top-color: #24262f;
+  }
+  .help-prose a {
+    color: #8a8aff;
+  }
+  .help-prose blockquote {
+    border-left-color: #6b6bff;
+    background: #191b30;
+    color: #c3c6cf;
+  }
+  .help-prose code {
+    background: #24262f;
+    color: #e6e7ea;
+  }
+  .help-prose img {
+    border-color: #2a2c35;
+  }
+  .help-prose th,
+  .help-prose td {
+    border-color: #2a2c35;
+  }
+  .help-prose th {
+    background: #1c1e2b;
+  }
+  .help-prose hr {
+    border-top-color: #24262f;
+  }
+
+  /* search-match highlight: readable on the dark card */
+  .help-hit {
+    background: #4b4bd6;
+    color: #fff;
+  }
 }
