@@ -15,6 +15,7 @@ export type SiteSettings = {
   available: string;
   contactHeading: string;
   contactEmail: string;
+  fontNumbersForAll: boolean;
 };
 
 const DEFAULT_SETTINGS: SiteSettings = {
@@ -25,6 +26,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   available: "Available for freelance & collaboration",
   contactHeading: "Let's make something.",
   contactEmail: "hello@example.com",
+  fontNumbersForAll: false,
 };
 
 function toImage(src: string | null | undefined): ProjectImage | null {
@@ -53,6 +55,8 @@ export async function getProjects(): Promise<Project[]> {
         title: entry.title,
         category: entry.category,
         description: entry.description,
+        year: entry.year || undefined,
+        dividerCaption: entry.dividerCaption || undefined,
         order: entry.order,
         cover,
         images,

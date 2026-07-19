@@ -66,6 +66,20 @@ body {
   font-size: 0.68rem;
 }
 
+/* Big outlined chapter numeral - code-rendered from the project number so any
+   number works. Mimics the original dividers: a huge thin white outline on
+   blue, oversized so it bleeds off the top and bottom edges. */
+.divider-numeral {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  font-size: min(132vh, 88vw);
+  color: transparent;
+  -webkit-text-stroke: 2.5px var(--color-paper);
+  text-stroke: 2.5px var(--color-paper);
+}
+
 /* Vertical label, like the portfolio's rotated section titles */
 .vertical-rl {
   writing-mode: vertical-rl;

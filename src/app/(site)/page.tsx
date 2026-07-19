@@ -23,7 +23,12 @@ export default async function Home() {
       </div>
 
       {projects.map((p, i) => (
-        <ProjectChapter key={p.slug} project={p} priority={i === 0} />
+        <ProjectChapter
+          key={p.slug}
+          project={p}
+          priority={i === 0}
+          numberStyle={settings.fontNumbersForAll ? "font" : "hybrid"}
+        />
       ))}
 
       <Contact settings={settings} />

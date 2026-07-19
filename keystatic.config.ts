@@ -83,6 +83,16 @@ export default config({
           description: "A short label, e.g. Branding, Album Artwork.",
           validation: { isRequired: true },
         }),
+        year: fields.text({
+          label: "Year",
+          description:
+            "The year this project was made, shown in the project details. Can be a single year (2026) or a range (2025–26).",
+        }),
+        dividerCaption: fields.text({
+          label: "Divider caption",
+          description:
+            "Small line of text shown beside the big number on this project's opening screen. Leave blank for none.",
+        }),
         description: fields.text({
           label: "Description",
           description: "The short paragraph shown next to the work.",
@@ -151,6 +161,12 @@ export default config({
           label: "Contact email",
           description: "Where the “email me” button sends people.",
           validation: { isRequired: true },
+        }),
+        fontNumbersForAll: fields.checkbox({
+          label: "Use the font style for all project numbers",
+          description:
+            "The big number on each project's opening screen. Off (default) keeps the hand-designed numbers 01–09 and uses the font style only for 10 onwards. On uses the font style for every number.",
+          defaultValue: false,
         }),
       },
     }),

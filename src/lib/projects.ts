@@ -10,6 +10,8 @@ export type Project = {
   title: string;
   category: string;
   description: string;
+  year?: string;
+  dividerCaption?: string;
   cover: ProjectImage;
   images: ProjectImage[];
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import type { Project } from "@/lib/projects";
 import { RevealImage } from "./RevealImage";
@@ -10,11 +10,17 @@ const ease = [0.16, 1, 0.3, 1] as const;
 export function ProjectChapter({
   project,
   priority = false,
+  numberStyle = "hybrid",
 }: {
   project: Project;
   priority?: boolean;
+  numberStyle?: "hybrid" | "font";
 }) {
   const dividerRef = useRef<HTMLDivElement>(null);
+  // In hybrid mode we show the hand-designed SVG numeral (01-09) and fall back
+  // to the code-rendered numeral when there's no artwork for that number (10+).
+  const [svgFailed, setSvgFailed] = useState(false);
+  const useSvg = numberStyle === "hybrid" && !svgFailed;
   const { scrollYProgress } = useScroll({
     target: dividerRef,
     offset: ["start start", "end start"],
@@ -33,13 +39,34 @@ export function ProjectChapter({
         ref={dividerRef}
         className="relative flex h-[100svh] items-center justify-center overflow-hidden bg-blue"
       >
-        <motion.img
-          src={`/dividers/${project.number}.svg`}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-contain"
-          style={{ y: numY, scale: numScale, opacity: numOpacity }}
-        />
+        {/* Hybrid: hand-designed SVG numeral for 01-09; code-rendered numeral
+            for anything without artwork (10+), or for every number when the
+            "Font for all" style is chosen in Site settings. */}
+        {useSvg ? (
+          <motion.img
+            src={`/dividers/${project.number}.svg`}
+            alt=""
+            aria-hidden
+            onError={() => setSvgFailed(true)}
+            className="absolute inset-0 h-full w-full object-contain"
+            style={{ y: numY, scale: numScale, opacity: numOpacity }}
+          />
+        ) : (
+          <motion.span
+            aria-hidden
+            className="divider-numeral absolute inset-0 flex items-center justify-center"
+            style={{ y: numY, scale: numScale, opacity: numOpacity }}
+          >
+            {project.number}.
+          </motion.span>
+        )}
+
+        {/* Editable caption beside the number (Keystatic field "Divider caption") */}
+        {project.dividerCaption ? (
+          <span className="vertical-rl mono-label absolute right-[3.5vw] top-1/2 z-10 -translate-y-1/2 text-paper/70">
+            {project.dividerCaption}
+          </span>
+        ) : null}
         <motion.div
           className="relative z-10 px-[5vw] text-center text-paper"
           style={{ y: titleY }}
@@ -103,8 +130,12 @@ export function ProjectChapter({
           <dl className="mono-label mt-8 grid grid-cols-[8ch_1fr] gap-y-3 text-ink/50">
             <dt>Type</dt>
             <dd className="text-ink">{project.category}</dd>
-            <dt>Year</dt>
-            <dd className="text-ink">2026</dd>
+            {project.year ? (
+              <>
+                <dt>Year</dt>
+                <dd className="text-ink">{project.year}</dd>
+              </>
+            ) : null}
             <dt>Role</dt>
             <dd className="text-ink">Design &amp; Art Direction</dd>
           </dl>
