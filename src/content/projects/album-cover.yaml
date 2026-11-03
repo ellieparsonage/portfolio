@@ -1,15 +1,15 @@
 title: Without My People
-number: "01"
+number: '01'
 order: 1
 category: Album Cover
-year: ""
-dividerCaption: "Album Cover"
-description: Album cover design for a music producer. The client wanted
-  something that represented the spacey, unique feel of the track, as well as
-  the cover having a representation of himself on it.
-cover: /images/work/album-cover/cover.jpg
+dividerCaption: Album Cover
+description: >-
+  Album cover design for a music producer. The client wanted something that
+  represented the spacey, unique feel of the track, as well as the cover having
+  a representation of himself on it.
+cover: /images/work/album-cover/cover.png
 images:
-  - /images/work/album-cover/images/0.jpg
-  - /images/work/album-cover/images/1.jpg
-  - /images/work/album-cover/images/2.jpg
-  - /images/work/album-cover/images/3.jpg
+  - /images/work/album-cover/images/0.png
+  - /images/work/album-cover/images/1.png
+  - /images/work/album-cover/images/2.png
+  - /images/work/album-cover/images/3.png
